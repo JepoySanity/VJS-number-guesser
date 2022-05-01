@@ -12,3 +12,16 @@ const game = document.querySelector("#game"),
 
 minNum.textContent = min;
 maxNum.textContent = max;
+
+guessBtn.addEventListener("click", function () {
+  let input = parseInt(guessInput.value);
+
+  if (isNaN(input) || input < min || input > max) {
+    msg = `Please input a number between ${min} and ${max}`;
+    showMessage(msg);
+  }
+});
+
+function showMessage(msg) {
+  message.textContent = msg;
+}
