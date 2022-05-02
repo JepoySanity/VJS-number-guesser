@@ -18,25 +18,37 @@ guessBtn.addEventListener("click", function () {
   // check if input is valid
   if (isNaN(input) || input < min || input > max) {
     msg = `Please input a number between ${min} and ${max}`;
-    showMessage(msg, "red", false);
+    showMessage(msg, "red");
   } else {
     //check if player won
     if (input === winningNum) {
-      showMessage("Congrats! you guess that right mate!", "green", true);
+      msg = "Omedeto gozaimasu! you won this stupid game";
+      gameOver(true, msg, true);
     } else {
       tries -= 1;
       if (tries === 0) {
-        showMessage("Sorry your ran out of guesses noob", "red", true);
+        msg = "Sorry your ran out of guesses noob";
+        gameOver(false, msg, true);
       } else {
-        showMessage(`${input} was wrong, you have ${tries} tries left`, "red");
+        msg = `${input} was wrong, you have ${tries} tries left!`;
+        gameOver(false, msg, false);
+        guessInput.value = "";
       }
     }
   }
 });
 
-function showMessage(msg, color, disabled) {
+function showMessage(msg, color) {
   message.textContent = msg;
   message.style.color = color;
+}
+
+function gameOver(won, msg, disabled) {
+  let color;
+  won === true ? (color = "green") : (color = "red");
   guessBtn.disabled = disabled;
+  guessInput.disabled = disabled;
   guessInput.style.borderColor = color;
+
+  showMessage(msg, color);
 }
