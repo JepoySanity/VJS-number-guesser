@@ -13,6 +13,12 @@ const game = document.querySelector("#game"),
 minNum.textContent = min;
 maxNum.textContent = max;
 
+game.addEventListener("mousedown", function (e) {
+  if (e.target.className === "play-again") {
+    window.location.reload();
+  }
+});
+
 guessBtn.addEventListener("click", function () {
   let input = parseInt(guessInput.value);
   // check if input is valid
@@ -23,15 +29,15 @@ guessBtn.addEventListener("click", function () {
     //check if player won
     if (input === winningNum) {
       msg = "Omedeto gozaimasu! you won this stupid game";
-      gameOver(true, msg, true);
+      gameOver(true, msg);
     } else {
       tries -= 1;
       if (tries === 0) {
         msg = "Sorry your ran out of guesses noob";
-        gameOver(false, msg, true);
+        gameOver(false, msg);
       } else {
         msg = `${input} was wrong, you have ${tries} tries left!`;
-        gameOver(false, msg, false);
+        showMessage(msg, "red");
         guessInput.value = "";
       }
     }
@@ -43,12 +49,12 @@ function showMessage(msg, color) {
   message.style.color = color;
 }
 
-function gameOver(won, msg, disabled) {
+function gameOver(won, msg) {
   let color;
   won === true ? (color = "green") : (color = "red");
-  guessBtn.disabled = disabled;
-  guessInput.disabled = disabled;
+  guessInput.disabled = true;
   guessInput.style.borderColor = color;
-
   showMessage(msg, color);
+  guessBtn.value = "Play again";
+  guessBtn.className = "play-again";
 }
