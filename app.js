@@ -1,7 +1,7 @@
 let min = 1,
   max = 10,
-  winningNum = 2,
-  tries = 3;
+  winningNum = generateRandomNum(min, max),
+  tries = 1000;
 
 const game = document.querySelector("#game"),
   minNum = document.querySelector(".min-num"),
@@ -57,4 +57,8 @@ function gameOver(won, msg) {
   showMessage(msg, color);
   guessBtn.value = "Play again";
   guessBtn.className = "play-again";
+}
+
+function generateRandomNum(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }
